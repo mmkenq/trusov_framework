@@ -1,11 +1,14 @@
 class Graph3DComponent extends Component {
-     win = {
+    win = {
         // относительно начала координат
         left: -10,
         bottom: -10,
         // относительно всего canvas'a
         width: 20,
         height: 20,
+
+        camera: new Point(0,0,50),
+        display: new Point(0,0,30),
     };
 
     userObjects = [];
@@ -29,7 +32,7 @@ class Graph3DComponent extends Component {
         });
 
         this.ui = new Graph3DUIComponent({
-            id:'ui2d',
+            id:'ui3d',
             parent: this,
             template: template.graph3DTemplate.uiTemplate,
             callbacks: {},

@@ -12,14 +12,14 @@ class Graph2DUIComponent extends Component {
 			// funcs.dataset.num = this.num;
 			this.num++;
 		});
-		document.getElementById('buts').appendChild(addFuncBut);
+		document.getElementById('buts2d').appendChild(addFuncBut);
 
 		// Clear button
 		let clearBut = document.createElement('button');
 		clearBut.innerHTML = 'clear';
 		// clearBut.addEventListener('click', options.api.canvasRender.bind(null, true));
 		clearBut.addEventListener('click', () => options.api.canvasRender(true));
-		document.getElementById('buts').appendChild(clearBut);
+		document.getElementById('buts2d').appendChild(clearBut);
 
 		// Standart Funcs buttons
 		for (let i = 0; i < options.standartFuncs.length; i++){
@@ -33,7 +33,7 @@ class Graph2DUIComponent extends Component {
 				options.standartFuncs[this.dataset.num].isActive = true;
 				options.api.canvasRender();
 			});
-			document.getElementById('buts').appendChild(but);
+			document.getElementById('buts2d').appendChild(but);
 		};
 	};
 

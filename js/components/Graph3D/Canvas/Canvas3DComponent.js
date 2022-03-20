@@ -12,7 +12,13 @@ class Canvas3DComponent extends Component {
 		canvas3d1.height = options.height;
 	};
 
-	clear(){
+	xs(x) { return };
+	ys(y) { return };
+	sx(x) { return };
+	sy(y) { return };
+
+	//TODO: context
+	clear(context){
 		this.context1.fillStyle = '#292929';
 		this.context1.fillRect(0,0,canvas3d1.width, canvas3d1.height);
 
@@ -20,9 +26,13 @@ class Canvas3DComponent extends Component {
 		// this.context2.fillRect(0,0,canvas3d2.width, canvas3d2.height);
 	};
 
-	render(){
+	//TODO: context
+	render(context){
 		this.clear();
+		this.printOxyz(context);
 	}
+
+	printOxyz(context){}
 
 	_AddEventListeners(){
 		// canvas3d1.addEventListener();
