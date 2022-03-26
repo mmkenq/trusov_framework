@@ -1,0 +1,5 @@
+function Figure(){
+    this.figures = [];
+    
+    
+};

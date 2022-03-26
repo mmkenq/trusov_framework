@@ -35,17 +35,25 @@ class Graph3DComponent extends Component {
             id:'ui3d',
             parent: this,
             template: template.graph3DTemplate.uiTemplate,
-            callbacks: {},
-            standartFuncs: this.standartFuncs,
+            callbacks: { addFigure: this.addFigure },
+            standartObjects: this.standartObjects,
         });
 
         this.render();
     };
 
     render(){
-        this.canvas1.render();
-        // this.canvas2.render();
-        // this.canvas3.render();
+        this.canvas1.render(canvas3d1.getContext('2d'));
+        // this.canvas2.render(canvas2d2.getContext('2d'));
+        // this.canvas3.render(canvas2d3.getContext('2d'));
         // ...
     };
+
+    addFigure(name){
+        figure.figures.push({
+			name: name,
+			points: []
+		});
+		console.log(figure)
+    }
 }
