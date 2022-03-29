@@ -1,11 +1,11 @@
 class Graph3DComponent extends Component {
     win = {
         // относительно начала координат
-        left: -10,
-        bottom: -10,
+        left: -5,
+        bottom: -5,
         // относительно всего canvas'a
-        width: 20,
-        height: 20,
+        width: 10,
+        height: 10,
 
         camera: new Point(0,0,60),
         display: new Point(0,0,30),
@@ -16,11 +16,17 @@ class Graph3DComponent extends Component {
         {
             f: figure.cube(),
             isActive: true,
-            color: 'red',
+            color: 'yellow',
             width: 2,
             name: 'cube'
         },
-        {},
+        {
+            f: figure.pyramid(),
+            isActive: false,
+            color: 'red',
+            width: 2,
+            name: 'pyramid'
+        },
         {}
     ];
 
@@ -70,16 +76,18 @@ class Graph3DComponent extends Component {
 
     wheel = (ev) => {
         if(ev.deltaY < 0){
-            if(this.win.width <= 5) return;
-            this.win.width -= 2;
-            this.win.height -= 2;
-            this.win.left++;
-            this.win.bottom++;
+            // this.win.width -= 2;
+            // this.win.height -= 2;
+            // this.win.left++;
+            // this.win.bottom++;
+            this.win.camera.z += 5;
         } else {
-            this.win.width += 2;
-            this.win.height += 2;
-            this.win.left--;
-            this.win.bottom--;
+            if(this.win.camera.z <= this.win.display.z+5) return;
+            this.win.camera.z -= 5;
+            // this.win.width += 2;
+            // this.win.height += 2;
+            // this.win.left--;
+            // this.win.bottom--;
         };
         this.render()
     }
@@ -88,10 +96,33 @@ class Graph3DComponent extends Component {
     mouseU(canvasComponent){canvasComponent.canMove = false}
     mouseM = (ev, canvasComponent) => {
         if (canvasComponent.canMove) {
-            canvasComponent.win.left -= canvasComponent.sx2dToCanvas(ev.movementX);
-            canvasComponent.win.bottom -= canvasComponent.sy2dToCanvas(ev.movementY);
+            // canvasComponent.win.left -= canvasComponent.sx2dToCanvas(ev.movementX);
+            // canvasComponent.win.bottom -= canvasComponent.sy2dToCanvas(ev.movementY);
 
-            // TODO: 3DMOUSEMOVE NOT 2D
+
+            // TURN LEFT-RIGHT
+            if(canvasComponent.win.display.z<=100){
+
+                canvasComponent.win.display.x -= ev.movementX;
+                canvasComponent.win.display.y = 0;
+                canvasComponent.win.display.z =
+                    Math.sqrt(canvasComponent.win.display.x*
+                              canvasComponent.win.display.x+
+                              // canvasComponent.win.display.y*
+                              // canvasComponent.win.display.y+
+                              canvasComponent.win.display.z*
+                              canvasComponent.win.display.z);
+
+                canvasComponent.win.camera.x -= 1;;
+                canvasComponent.win.camera.y -= 1;
+                canvasComponent.win.camera.z = canvasComponent.win.display.z*2;
+
+            }
+            else{
+
+            }
+
+            console.log(this.win.display,this.win.camera)
             this.render();
         };
     }

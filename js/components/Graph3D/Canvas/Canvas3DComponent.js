@@ -47,6 +47,7 @@ class Canvas3DComponent extends Component {
 
 		this.standartObjects.forEach((el)=>{
 			if(el.isActive){
+				this.printEdges(el.f, context)
 				this.printPoints(el.f, context);
 			}
 		});
@@ -88,7 +89,7 @@ class Canvas3DComponent extends Component {
 	}
 
 	printPoints(subject, context){
-		let pointSize = 2;
+		let pointSize = 3;
 		context.fillStyle = '#ff2626';
 		subject.points.forEach((el)=>{
 			context.beginPath();
@@ -98,7 +99,11 @@ class Canvas3DComponent extends Component {
 	}
 	
 	printEdges(subject, context){
-		
+		subject.edges.forEach((el)=>{
+			this.line(subject.points[el.p1], subject.points[el.p1],
+					  subject.points[el.p2], subject.points[el.p2],
+				  	  context, 'pink', 2);
+		});
 	}
 
 	printSubject(subject, context){
