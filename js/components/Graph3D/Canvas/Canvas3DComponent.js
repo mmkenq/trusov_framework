@@ -51,13 +51,6 @@ class Canvas3DComponent extends Component {
 				this.printPoints(el.f, context);
 			}
 		});
-		// figure.edges.forEach(edge => {
-		// 	console.log(this)
-		// 	// const point1 = this.figure.points[edge.p1];
-		// 	// const point2 = this.figure.points[edge.p2];
-		// 	// this.canvas.line(this.xs(point1), this.ys(point1), this.xs(point2), this.ys(point2));
-			
-		// })
 	}
 
 	// TODO
