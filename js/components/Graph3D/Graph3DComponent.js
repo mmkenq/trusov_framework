@@ -11,26 +11,6 @@ class Graph3DComponent extends Component {
         display: new Point(0,0,30),
     };
 
-    userObjects = [];
-    standartObjects = [
-        {
-            f: figure.cube(),
-            isActive: true,
-            color: 'yellow',
-            width: 2,
-            name: 'cube'
-        },
-        {
-            f: figure.pyramid(),
-            isActive: false,
-            color: 'red',
-            width: 2,
-            name: 'pyramid'
-        },
-        {}
-    ];
-
-
     constructor(options){
         super(options);
 
@@ -67,76 +47,30 @@ class Graph3DComponent extends Component {
     };
 
     addFigure(name){
-        figure.figures.push({
+        figure.userFigures.push({
+			subject: figure.sphere(),
+            isActive: true,
 			name: name,
-			points: []
 		});
 		console.log(figure)
     }
 
     wheel = (ev) => {
-        // if(ev.deltaY < 0){
-        //     // this.win.width -= 2;
-        //     // this.win.height -= 2;
-        //     // this.win.left++;
-        //     // this.win.bottom++;
-        //     this.win.camera.z += 5;
-        // } else {
-        //     if(this.win.camera.z <= this.win.display.z+5) return;
-        //     this.win.camera.z -= 5;
-        //     // this.win.width += 2;
-        //     // this.win.height += 2;
-        //     // this.win.left--;
-        //     // this.win.bottom--;
-        // };
+        if(ev.deltaY < 0){
+            // this.win.width -= 2;
+            // this.win.height -= 2;
+            // this.win.left++;
+            // this.win.bottom++;
+            this.win.camera.z += 5;
+        } else {
+            if(this.win.camera.z <= this.win.display.z+5) return;
+            this.win.camera.z -= 5;
+            // this.win.width += 2;
+            // this.win.height += 2;
+            // this.win.left--;
+            // this.win.bottom--;
+        };
 
-        const a = 5/57.295779513082;
-        // const a = 45;
-
-        // TURN AROUND X MATRIX
-        /*const turnAroundX = new Matrix(
-            [
-            [1,0,0],
-            [0, Math.cos(a), -Math.sin(a)],
-            [0, Math.sin(a), Math.cos(a)]
-            ])*/
-
-        const turnAroundX = new Matrix([
-            [1,0,0,0],
-            [0, Math.cos(a), Math.sin(a)*0,0],
-            [0, -Math.sin(a), Math.cos(a), 0],
-            [0,0,0,1]
-        ]);           
-
-
-        // TURN AROUND Y MATRIX
-        const turnAroundY = new Matrix([
-            [Math.cos(a), 0, Math.sin(a)],
-            [0, 1, 0],
-            [-Math.sin(a), 0, Math.cos(a)]
-        ]);
-
-        // TURN AROUND Z MATRIX
-        const turnAroundZ = new Matrix(
-            [
-            [Math.cos(a), -Math.sin(a), 0],
-            [Math.sin(a), Math.cos(a), 0],
-            [0, 0, 1]
-            ])
-
-        // console.log(turnAroundX)
-        // console.log(turnAroundY)
-        // console.log(turnAroundZ)
-
-        // X
-        this.standartObjects[0].f.points.forEach(point=>{
-            point.y = point.y*Math.cos(a) + point.z*Math.sin(a);
-            point.z = -point.y*Math.sin(a) + point.z*Math.cos(a);
-        })
-        // TODO: Y, Z
-
-        
-        console.log(this.win.display, this.win.camera)
         this.render();
     }
 
@@ -146,11 +80,128 @@ class Graph3DComponent extends Component {
     // TODO
     mouseM = (ev, canvasComponent) => {
         if (canvasComponent.canMove) {
+            //TODO: be able to move Oxy
             // canvasComponent.win.left -= canvasComponent.sx2dToCanvas(ev.movementX);
             // canvasComponent.win.bottom -= canvasComponent.sy2dToCanvas(ev.movementY);
 
+            // a = 3deg;
+            const a = 3/57.295779513082;
+/*
+          // TURN AROUND X MATRIX (COUNTERCLOCKWISE)
+            const turnAroundX = new Matrix([
+                [1,0,0],
+                [0, Math.cos(a), -Math.sin(a)],
+                [0, Math.sin(a), Math.cos(a)]
+            ]);
+
+            // TURN AROUND Y MATRIX (CLOCKWISE)
+            const turnAroundY = new Matrix([
+                [Math.cos(a), 0, Math.sin(a)],
+                [0, 1, 0],
+                [-Math.sin(a), 0, Math.cos(a)]
+            ]);
+
+            // TURN AROUND Z MATRIX (COUNTERCLOCKWISE)
+            const turnAroundZ = new Matrix([
+                [Math.cos(a), -Math.sin(a), 0],
+                [Math.sin(a), Math.cos(a), 0],
+                [0, 0, 1]
+            ]);
+*/
+
+            // ----> X  counter clockwise
+            if(ev.movementY<0){
+                figure.standartFigures.forEach((el)=>{
+                    if(el.isActive){
+                        el.subject.points.forEach(point=>{
+                            point.y = point.y*Math.cos(a) + point.z*Math.sin(a);
+                            point.z = -point.y*Math.sin(a) + point.z*Math.cos(a);
+                        });
+                    };
+                });
+
+                figure.userFigures.forEach((el)=>{
+                    if(el.isActive){
+                        el.subject.points.forEach(point=>{
+                            point.y = point.y*Math.cos(a) + point.z*Math.sin(a);
+                            point.z = -point.y*Math.sin(a) + point.z*Math.cos(a);
+                        });
+                    };
+                });
+
+            };
+
+            // ----> X  clockwise 
+            if(ev.movementY>0){
+                figure.standartFigures.forEach((el)=>{
+                    if(el.isActive){
+                        el.subject.points.forEach(point=>{
+                            point.y = point.y*Math.cos(a) - point.z*Math.sin(a);
+                            point.z = point.y*Math.sin(a) + point.z*Math.cos(a);
+                        });
+                    };
+                });
 
 
+                figure.userFigures.forEach((el)=>{
+                    if(el.isActive){
+                        el.subject.points.forEach(point=>{
+                            point.y = point.y*Math.cos(a) - point.z*Math.sin(a);
+                            point.z = point.y*Math.sin(a) + point.z*Math.cos(a);
+                        });
+                    };
+                });
+            };
+
+            // ----> Y  counter clockwise
+            if(ev.movementX<0){
+                figure.standartFigures.forEach((el)=>{
+                    if(el.isActive){
+                        el.subject.points.forEach(point=>{
+                            point.x = point.x*Math.cos(a) - point.z*Math.sin(a);
+                            point.z = point.x*Math.sin(a) + point.z*Math.cos(a);
+                        });
+                    };
+                });
+                figure.userFigures.forEach((el)=>{
+                    if(el.isActive){
+                        el.subject.points.forEach(point=>{
+                            point.x = point.x*Math.cos(a) - point.z*Math.sin(a);
+                            point.z = point.x*Math.sin(a) + point.z*Math.cos(a);
+                        });
+                    };
+                });
+            };
+
+            // ----> Y  clockwise
+            if(ev.movementX>0){
+                figure.standartFigures.forEach((el)=>{
+                    if(el.isActive){
+                        el.subject.points.forEach(point=>{
+                            point.x = point.x*Math.cos(a) + point.z*Math.sin(a);
+                            point.z = -point.x*Math.sin(a) + point.z*Math.cos(a);
+                        });
+                    };
+                });
+                figure.userFigures.forEach((el)=>{
+                    if(el.isActive){
+                        el.subject.points.forEach(point=>{
+                            point.x = point.x*Math.cos(a) + point.z*Math.sin(a);
+                            point.z = -point.x*Math.sin(a) + point.z*Math.cos(a);
+                        });
+                    };
+                });
+            };
+
+
+            // TODO
+            // ----> Z  counter clockwise
+            //     point.x = point.x*Math.cos(a) - point.y*Math.sin(a);
+            //     point.y = point.x*Math.sin(a) + point.y*Math.cos(a);
+
+            // ----> Z  clockwise
+            //     point.x = point.x*Math.cos(a) + point.y*Math.sin(a);
+            //     point.y = -point.x*Math.sin(a) + point.y*Math.cos(a);
             this.render();
         };
     }

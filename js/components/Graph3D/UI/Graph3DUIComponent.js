@@ -1,15 +1,25 @@
 class Graph3DUIComponent extends Component {
+	num = 0;
 	objects = [
 		'cube',
 		'sphere',
 		'pyramid',
 		'cone',
 		'cylinder',
-	]
-
+	];
 
 	constructor(options){
 		super(options);
+
+		// TODO
+		let addBut = document.createElement('button');
+		addBut.innerHTML = 'add Figure'
+		addBut.addEventListener('click',()=>{
+			this.addUserFigure(this.num);
+			this.num++;
+		})
+		buts3d.appendChild(addBut)
+
 
 		let selectObjBut = document.createElement('select');
 		this.objects.forEach((el)=>{
@@ -23,7 +33,7 @@ class Graph3DUIComponent extends Component {
 
 			selectObjBut.appendChild(option);
 		});
-		document.getElementById('buts3d').appendChild(selectObjBut);
+		buts3d.appendChild(selectObjBut);
 
 
 		let x = document.createElement('input');
@@ -35,10 +45,14 @@ class Graph3DUIComponent extends Component {
 		x.id = 'newFigureX';
 		y.id = 'newFigureY';
 		z.id = 'newFigureZ';
-		document.getElementById('buts3d').appendChild(x);
-		document.getElementById('buts3d').appendChild(y);
-		document.getElementById('buts3d').appendChild(z);
+		buts3d.appendChild(x);
+		buts3d.appendChild(y);
+		buts3d.appendChild(z);
 	};
+
+	addUserFigure(num){
+		this.callbacks.addFigure('sphere');
+	}
 
 	_AddEventListeners(){
 		// for template only

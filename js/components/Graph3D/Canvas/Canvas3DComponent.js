@@ -45,10 +45,17 @@ class Canvas3DComponent extends Component {
 		this.clear(context);
 		this.printOxyz(context);
 
-		this.standartObjects.forEach((el)=>{
+		figure.standartFigures.forEach((el)=>{
 			if(el.isActive){
-				this.printEdges(el.f, context)
-				this.printPoints(el.f, context);
+				this.printEdges(el.subject, context)
+				this.printPoints(el.subject, context);
+			}
+		});
+
+		figure.userFigures.forEach((el)=>{
+			if(el.isActive){
+				this.printEdges(el.subject, context)
+				this.printPoints(el.subject, context);
 			}
 		});
 	}
