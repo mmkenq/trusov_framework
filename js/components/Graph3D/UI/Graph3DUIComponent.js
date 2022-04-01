@@ -16,6 +16,26 @@ class Graph3DUIComponent extends Component {
 		addBut.innerHTML = 'add Figure'
 		addBut.addEventListener('click',()=>{
 			this.addUserFigure(this.num);
+			let figInputs = document.createElement('div');
+			figInputs.dataset.num = this.num;
+
+			let x = document.createElement('input');
+			let y = document.createElement('input');
+			let z = document.createElement('input');
+			x.value = 0;
+			y.value = 0;
+			z.value = 0;
+			x.id = 'newFigureX';
+			y.id = 'newFigureY';
+			z.id = 'newFigureZ';
+			figInputs.appendChild(x);
+			figInputs.appendChild(y);
+			figInputs.appendChild(z);
+			let color = document.createElement('input');
+			color.setAttribute('placeholder', 'color');
+			figInputs.appendChild(color);
+
+			figures.appendChild(figInputs);
 			this.num++;
 		})
 		buts3d.appendChild(addBut)
@@ -34,20 +54,6 @@ class Graph3DUIComponent extends Component {
 			selectObjBut.appendChild(option);
 		});
 		buts3d.appendChild(selectObjBut);
-
-
-		let x = document.createElement('input');
-		let y = document.createElement('input');
-		let z = document.createElement('input');
-		x.value = 0;
-		y.value = 0;
-		z.value = 0;
-		x.id = 'newFigureX';
-		y.id = 'newFigureY';
-		z.id = 'newFigureZ';
-		buts3d.appendChild(x);
-		buts3d.appendChild(y);
-		buts3d.appendChild(z);
 	};
 
 	addUserFigure(num){
