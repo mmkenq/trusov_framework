@@ -1,1 +1,0 @@
-Template.prototype.graph2DTemplate = () => 'GRAPH 2D';
