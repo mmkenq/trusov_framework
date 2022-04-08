@@ -7,7 +7,8 @@ function Figure(){
             isActive: true,
             color: 'yellow',
             width: 2,
-            name: 'cube'
+            name: 'cube',
+            center: new Point(0,0,0)
         },
         {
             subject: this.pyramid(),

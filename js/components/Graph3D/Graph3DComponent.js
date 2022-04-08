@@ -31,7 +31,8 @@ class Graph3DComponent extends Component {
             id:'ui3d',
             parent: this,
             template: template.graph3DTemplate.uiTemplate,
-            callbacks: { addFigure: this.addFigure },
+            callbacks: { changeFigure: this.changeFigure,
+                         addFigure: this.addFigure },
             standartObjects: this.standartObjects,
         });
 
@@ -46,13 +47,25 @@ class Graph3DComponent extends Component {
         // ...
     };
 
-    addFigure(name){
-        figure.userFigures.push({
-			subject: figure.sphere(),
+    changeFigure(num, subject, center, name){
+        // TODO: dataset.num instead of push()
+        figure.userFigures[num] = {
             isActive: true,
-			name: name,
-		});
+			subject: subject,
+            center: center,
+			name: name
+		};
 		console.log(figure)
+    }
+
+    addFigure(){
+        figure.userFigures.push({
+            subject: figure.cube(),
+            isActive: true,
+            name: 'cube',
+            center: new Point(0,0,0)
+        });
+        console.log(figure)
     }
 
     wheel = (ev) => {

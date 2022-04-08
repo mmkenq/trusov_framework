@@ -38,7 +38,7 @@ canvas, button{
 	flex-flow: column;
 }
 
-.funcInputs{
+.userInputs{
 	display: flex;
 	flex-flow: row wrap;	
 }

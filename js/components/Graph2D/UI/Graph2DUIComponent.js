@@ -102,7 +102,7 @@ class Graph2DUIComponent extends Component {
 		input.setAttribute('class', 'function');
 
 		funcInputs.dataset.num = this.num;
-		funcInputs.setAttribute('class','funcInputs');
+		funcInputs.setAttribute('class','userInputs');
 		funcInputs.appendChild(color);
 		funcInputs.appendChild(width);
 		funcInputs.appendChild(a);
