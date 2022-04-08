@@ -32,7 +32,9 @@ class Graph3DComponent extends Component {
             parent: this,
             template: template.graph3DTemplate.uiTemplate,
             callbacks: { changeFigure: this.changeFigure,
-                         addFigure: this.addFigure },
+                         addFigure: this.addFigure,
+                         changeFigureXYZ: this.changeFigureXYZ,
+                        },
             standartObjects: this.standartObjects,
         });
 
@@ -47,26 +49,42 @@ class Graph3DComponent extends Component {
         // ...
     };
 
-    changeFigure(num, subject, center, name){
-        // TODO: dataset.num instead of push()
+    changeFigure = (num, subject, color, linewidth, name) => {
         figure.userFigures[num] = {
             isActive: true,
-			subject: subject,
-            center: center,
+			subject: subject || figure.userFigures[num].subject,
+            // center: center,
+            color: color,
+            width: linewidth,
 			name: name
 		};
-		console.log(figure)
-    }
+        this.render();
+		console.log(figure);
+    };
 
-    addFigure(){
-        figure.userFigures.push({
-            subject: figure.cube(),
-            isActive: true,
-            name: 'cube',
-            center: new Point(0,0,0)
+    changeFigureXYZ = (num, offsetX, offsetY, offsetZ) => {
+        figure.userFigures[num].subject.points.forEach((point)=>{
+            point.x += offsetX;
+            point.y += offsetY;
+            point.z += offsetZ;
         });
+
+        this.render();
+    };
+
+    addFigure = () => {
+        figure.userFigures.push({
+            isActive: true,
+            subject: figure.cube(),
+            // center: new Point(0,0,0),
+            color: 'pink',
+            width: 2,
+            name: 'cube',
+        });
+
+        this.render();
         console.log(figure)
-    }
+    };
 
     wheel = (ev) => {
         if(ev.deltaY < 0){
@@ -87,8 +105,8 @@ class Graph3DComponent extends Component {
         this.render();
     }
 
-    mouseD(canvasComponent){canvasComponent.canMove = true}
-    mouseU(canvasComponent){canvasComponent.canMove = false}
+    mouseD(canvasComponent){canvasComponent.canMove = true};
+    mouseU(canvasComponent){canvasComponent.canMove = false};
 
     // TODO
     mouseM = (ev, canvasComponent) => {
@@ -217,6 +235,6 @@ class Graph3DComponent extends Component {
             //     point.y = -point.x*Math.sin(a) + point.y*Math.cos(a);
             this.render();
         };
-    }
+    };
 
 }

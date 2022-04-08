@@ -29,12 +29,43 @@ class Graph3DUIComponent extends Component {
 			x.id = 'newFigureX';
 			y.id = 'newFigureY';
 			z.id = 'newFigureZ';
+			x.addEventListener('blur', ()=>{
+				this.callbacks.changeFigureXYZ(figInputs.dataset.num, Number(x.value), 0, 0);
+		    });
+		    y.addEventListener('blur', ()=>{
+				this.callbacks.changeFigureXYZ(figInputs.dataset.num, 0, Number(y.value), 0);
+		    });
+			z.addEventListener('blur', ()=>{
+				this.callbacks.changeFigureXYZ(figInputs.dataset.num, 0, 0, Number(z.value));
+		    });
 			figInputs.appendChild(x);
 			figInputs.appendChild(y);
 			figInputs.appendChild(z);
+
 			let color = document.createElement('input');
 			color.setAttribute('placeholder', 'color');
 			figInputs.appendChild(color);
+
+			let linewidth = document.createElement('input');
+			linewidth.setAttribute('placeholder', 'linewidth');
+			figInputs.appendChild(linewidth);			
+
+			let name = document.createElement('input');
+			name.setAttribute('placeholder', 'name');
+			figInputs.appendChild(name);			
+
+			let scalingPlus = document.createElement('button');
+			scalingPlus.innerHTML = '+';
+			scalingPlus.addEventListener('click', ()=>{
+				console.log('scalingPlus')
+			});
+			let scalingMinus = document.createElement('button');
+			scalingMinus.innerHTML = '-';
+			scalingMinus.addEventListener('click', ()=>{
+				console.log('scalingMinus');
+			});
+			figInputs.appendChild(scalingPlus);
+			figInputs.appendChild(scalingMinus);
 
 			let changeFigBut = document.createElement('select');
 			this.objects.forEach((el)=>{
@@ -45,13 +76,10 @@ class Graph3DUIComponent extends Component {
 					{
 						this.callbacks.changeFigure(
 							figInputs.dataset.num,
-							figure[el](),
-						 	new Point(Number(x.value), Number(y.value), Number(z.value)),
-							el);
-						 
-
-						
-						// this.addUserFigure(this.num);
+							figure[el](new Point(Number(x.value), Number(y.value), Number(z.value))),
+						 	color.value,
+						 	linewidth.value,
+							name.value||el);
 					});
 
 				changeFigBut.appendChild(option);

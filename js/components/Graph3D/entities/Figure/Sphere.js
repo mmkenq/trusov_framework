@@ -1,19 +1,19 @@
-Figure.prototype.sphere = () => {
+Figure.prototype.sphere = (center = new Point(0,0,0)) => {
     const points = [
-    	new Point(0,6,0),  // 0
-    	new Point(0,-6,0), // 1
-    	new Point(-6,0,0), // 2
-    	new Point(6,0,0),  // 3
-    	new Point(0,0,6),  // 4
-    	new Point(0,0,-6), // 5
-    	new Point(-Math.cos(45/57.295779513082)*6,Math.sin(45/57.295779513082)*6,0), // 6
-    	new Point(0,Math.cos(45/57.295779513082)*6,-Math.cos(45/57.295779513082)*6), // 7
-    	new Point(Math.cos(45/57.295779513082)*6,Math.cos(45/57.295779513082)*6,0),  // 8
-    	new Point(0,Math.cos(45/57.295779513082)*6,Math.cos(45/57.295779513082)*6),  // 9
-    	new Point(Math.cos(45/57.295779513082)*6,-Math.cos(45/57.295779513082)*6,0), // 10
-    	new Point(0,-Math.cos(45/57.295779513082)*6,Math.cos(45/57.295779513082)*6), // 11
-    	new Point(-Math.cos(45/57.295779513082)*6,-Math.cos(45/57.295779513082)*6,0), // 12
-    	new Point(0,-Math.cos(45/57.295779513082)*6,-Math.cos(45/57.295779513082)*6), // 13
+    	new Point(center.x+0,center.y+6,center.z+0),  // 0
+    	new Point(center.x+0,center.y+-6,center.z+0), // 1
+    	new Point(center.x+-6,center.y+0,center.z+0), // 2
+    	new Point(center.x+6,center.y+0,center.z+0),  // 3
+    	new Point(center.x+0,center.y+0,center.z+6),  // 4
+    	new Point(center.x+0,center.y+0,center.z+-6), // 5
+    	new Point(center.x+-Math.cos(45/57.295779513082)*6,center.y+Math.sin(45/57.295779513082)*6,center.z+0), // 6
+    	new Point(center.x+0,center.y+Math.cos(45/57.295779513082)*6,-Math.cos(45/57.295779513082)*6), // 7
+    	new Point(center.x+Math.cos(45/57.295779513082)*6,center.y+Math.cos(45/57.295779513082)*6,center.z+0),  // 8
+    	new Point(center.x+0,center.y+Math.cos(45/57.295779513082)*6,center.z+Math.cos(45/57.295779513082)*6),  // 9
+    	new Point(center.x+Math.cos(45/57.295779513082)*6,center.y+-Math.cos(45/57.295779513082)*6,center.z+0), // 10
+    	new Point(center.x+0,center.y+-Math.cos(45/57.295779513082)*6,center.z+Math.cos(45/57.295779513082)*6), // 11
+    	new Point(center.x+-Math.cos(45/57.295779513082)*6,center.y+-Math.cos(45/57.295779513082)*6,center.z+0), // 12
+    	new Point(center.x+0,center.y+-Math.cos(45/57.295779513082)*6,center.z+-Math.cos(45/57.295779513082)*6), // 13
     ];
     const edges = [
     	new Edge(0,6),

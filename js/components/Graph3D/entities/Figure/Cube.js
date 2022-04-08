@@ -1,15 +1,15 @@
-Figure.prototype.cube = () => {
+Figure.prototype.cube = (center = new Point(0,0,0)) => {
     const points = [
-    	new Point(-5,5,-5), // 0
-    	new Point(5,5,-5),  // 1
-    	new Point(-5,-5,-5),// 2
-    	new Point(5,-5,-5), // 3
-    	new Point(-5,5,5),  // 4
-    	new Point(5,5,5),   // 5
-    	new Point(-5,-5,5), // 6
-    	new Point(5,-5,5),  // 7
+    	new Point(center.x+-5,center.y+5,center.z+-5), // 0
+    	new Point(center.x+5,center.y+5,center.z+-5),  // 1
+    	new Point(center.x+-5,center.y+-5,center.z+-5),// 2
+    	new Point(center.x+5,center.y+-5,center.z+-5), // 3
+    	new Point(center.x+-5,center.y+5,center.z+5),  // 4
+    	new Point(center.x+5,center.y+5,center.z+5),   // 5
+    	new Point(center.x+-5,center.y+-5,center.z+5), // 6
+    	new Point(center.x+5,center.y+-5,center.z+5),  // 7
 
-    	new Point(0,0,0) // center
+    	// new Point(0,0,0) // center
     ];
     const edges = [
         new Edge(4,6),

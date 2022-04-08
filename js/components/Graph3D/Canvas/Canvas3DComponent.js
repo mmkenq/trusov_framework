@@ -47,14 +47,14 @@ class Canvas3DComponent extends Component {
 
 		figure.standartFigures.forEach((el)=>{
 			if(el.isActive){
-				this.printEdges(el.subject, context)
+				this.printEdges(el, context)
 				this.printPoints(el.subject, context);
 			}
 		});
 
 		figure.userFigures.forEach((el)=>{
 			if(el.isActive){
-				this.printEdges(el.subject, context)
+				this.printEdges(el, context)
 				this.printPoints(el.subject, context);
 			}
 		});
@@ -98,11 +98,11 @@ class Canvas3DComponent extends Component {
 		});
 	}
 	
-	printEdges(subject, context){
-		subject.edges.forEach((el)=>{
-			this.line(subject.points[el.p1], subject.points[el.p1],
-					  subject.points[el.p2], subject.points[el.p2],
-				  	  context, 'pink', 2);
+	printEdges(fig, context){
+		fig.subject.edges.forEach((el)=>{
+			this.line(fig.subject.points[el.p1], fig.subject.points[el.p1],
+					  fig.subject.points[el.p2], fig.subject.points[el.p2],
+				  	  context, fig.color, fig.width);
 		});
 	}
 
