@@ -24,17 +24,24 @@ Figure.prototype.cube = (center = new Point(0,0,0)) => {
 
         new Edge(0,1), // 8
         new Edge(1,3), // 9
-        new Edge(3,2), // 10
-        new Edge(2,0), // 11
+        new Edge(2,3), // 10
+        new Edge(0,2), // 11
     ];
 
-    const planes = [
-        new Plane(9, 2),
-        new Plane(8, 10),
-        // new Plane(10, 1),
-        // new Plane(3, 1),
-        // new Plane(7, 4),
-        // new Plane(8, 3),
-    ]
-    return new Subject(points,edges,planes);
+    const polygons = [
+        new Polygon(0,1,2),
+        new Polygon(1,2,3),
+        new Polygon(1,3,7),
+        new Polygon(1,5,7),
+        new Polygon(4,5,6),
+        new Polygon(5,6,7),
+        new Polygon(2,6,7),
+        new Polygon(2,3,7),
+        new Polygon(0,2,6),
+        new Polygon(0,4,6),
+        new Polygon(0,4,5),
+        new Polygon(0,1,5),
+    ];
+
+    return new Subject(points, edges, polygons);
 }

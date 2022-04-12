@@ -49,7 +49,7 @@ class Canvas3DComponent extends Component {
 			if(el.isActive){
 				this.printEdges(el, context)
 				this.printPoints(el, context);
-				if(el.showPlanes) this.printPlanes(el, context);
+				if(el.showPolygons) this.printPolygon(el, context);
 			}
 		});
 
@@ -111,19 +111,15 @@ class Canvas3DComponent extends Component {
 
 	}
 
-	// TODO
-	printPlanes(fig, context){
-		fig.subject.planes.forEach((el)=>{
+	// NOTE: polygon is triangle here 
+	printPolygon(fig, context){
+		fig.subject.polygons.forEach((el)=>{
 			context.beginPath();
 			context.fillStyle = '#2596be';
 			context.globalAlpha = 0.8;
-			context.moveTo(this.xs2dToCanvas(this.xs3dTo2d(fig.subject.points[fig.subject.edges[el.e1].p1])), this.ys2dToCanvas(this.ys3dTo2d(fig.subject.points[fig.subject.edges[el.e1].p1])));
-			context.lineTo(this.xs2dToCanvas(this.xs3dTo2d(fig.subject.points[fig.subject.edges[el.e1].p2])), this.ys2dToCanvas(this.ys3dTo2d(fig.subject.points[fig.subject.edges[el.e1].p2])));
-			context.lineTo(this.xs2dToCanvas(this.xs3dTo2d(fig.subject.points[fig.subject.edges[el.e2].p1])), this.ys2dToCanvas(this.ys3dTo2d(fig.subject.points[fig.subject.edges[el.e2].p1])));
-			context.moveTo(this.xs2dToCanvas(this.xs3dTo2d(fig.subject.points[fig.subject.edges[el.e2].p2])), this.ys2dToCanvas(this.ys3dTo2d(fig.subject.points[fig.subject.edges[el.e2].p2])));
-			context.lineTo(this.xs2dToCanvas(this.xs3dTo2d(fig.subject.points[fig.subject.edges[el.e1].p2])), this.ys2dToCanvas(this.ys3dTo2d(fig.subject.points[fig.subject.edges[el.e1].p2])));
-			context.lineTo(this.xs2dToCanvas(this.xs3dTo2d(fig.subject.points[fig.subject.edges[el.e2].p1])), this.ys2dToCanvas(this.ys3dTo2d(fig.subject.points[fig.subject.edges[el.e2].p1])));
-
+			context.moveTo(this.xs2dToCanvas(this.xs3dTo2d(fig.subject.points[el.p1])), this.ys2dToCanvas(this.ys3dTo2d(fig.subject.points[el.p1])));
+			context.lineTo(this.xs2dToCanvas(this.xs3dTo2d(fig.subject.points[el.p2])), this.ys2dToCanvas(this.ys3dTo2d(fig.subject.points[el.p2])));
+			context.lineTo(this.xs2dToCanvas(this.xs3dTo2d(fig.subject.points[el.p3])), this.ys2dToCanvas(this.ys3dTo2d(fig.subject.points[el.p3])));
 			context.fill();
 		});
 	}

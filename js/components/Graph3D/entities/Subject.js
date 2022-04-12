@@ -1,7 +1,7 @@
 class Subject{
-    constructor(points=[], edges = [], planes = []){
+    constructor(points=[], edges = [], polygons = []){
         this.points = points;
         this.edges = edges;
-        this.planes = planes;
+        this.polygons = polygons;
     }
 }

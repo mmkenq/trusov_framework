@@ -8,7 +8,7 @@ function Figure(){
             // center: new Point(0,0,0),
             color: 'yellow',
             width: 2,
-            showPlanes: true,
+            showPolygons: true,
             name: 'cube',
         },
         {
