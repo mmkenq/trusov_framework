@@ -67,6 +67,21 @@ class Graph3DUIComponent extends Component {
 			figInputs.appendChild(scalingPlus);
 			figInputs.appendChild(scalingMinus);
 
+			let planes = document.createElement('input');
+			planes.setAttribute('type','checkbox');
+			planes.id = 'showPlanes'
+			let label = document.createElement('label');
+			label.setAttribute('for', 'showPlanes');
+			label.innerHTML = 'planes';
+
+			planes.addEventListener('click', ()=>{
+				// this.callbacks.togglePlanes()
+				console.log(this)
+			})
+			figInputs.appendChild(planes);
+			figInputs.appendChild(label);
+
+
 			let changeFigBut = document.createElement('select');
 			this.objects.forEach((el)=>{
 				let option = document.createElement('option');

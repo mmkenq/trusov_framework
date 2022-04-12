@@ -12,20 +12,29 @@ Figure.prototype.cube = (center = new Point(0,0,0)) => {
     	// new Point(0,0,0) // center
     ];
     const edges = [
-        new Edge(4,6),
-        new Edge(6,7),
-        new Edge(5,7),
-        new Edge(4,5),
+        new Edge(4,6), // 0
+        new Edge(6,7), // 1
+        new Edge(5,7), // 2
+        new Edge(4,5), // 3
 
-        new Edge(0,4),
-        new Edge(5,1),
-        new Edge(3,7),
-        new Edge(2,6),
+        new Edge(0,4), // 4
+        new Edge(5,1), // 5
+        new Edge(3,7), // 6
+        new Edge(2,6), // 7
 
-        new Edge(0,1),
-        new Edge(1,3),
-        new Edge(3,2),
-        new Edge(2,0),
+        new Edge(0,1), // 8
+        new Edge(1,3), // 9
+        new Edge(3,2), // 10
+        new Edge(2,0), // 11
     ];
-    return new Subject(points,edges);
+
+    const planes = [
+        new Plane(9, 2),
+        new Plane(8, 10),
+        // new Plane(10, 1),
+        // new Plane(3, 1),
+        // new Plane(7, 4),
+        // new Plane(8, 3),
+    ]
+    return new Subject(points,edges,planes);
 }

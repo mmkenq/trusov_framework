@@ -48,14 +48,15 @@ class Canvas3DComponent extends Component {
 		figure.standartFigures.forEach((el)=>{
 			if(el.isActive){
 				this.printEdges(el, context)
-				this.printPoints(el.subject, context);
+				this.printPoints(el, context);
+				if(el.showPlanes) this.printPlanes(el, context);
 			}
 		});
 
 		figure.userFigures.forEach((el)=>{
 			if(el.isActive){
 				this.printEdges(el, context)
-				this.printPoints(el.subject, context);
+				this.printPoints(el, context);
 			}
 		});
 	}
@@ -88,10 +89,10 @@ class Canvas3DComponent extends Component {
 				  context, 'yellow', 3);
 	}
 
-	printPoints(subject, context){
+	printPoints(fig, context){
 		let pointSize = 3;
 		context.fillStyle = '#ff2626';
-		subject.points.forEach((el)=>{
+		fig.subject.points.forEach((el)=>{
 			context.beginPath();
 			context.arc(this.xs2dToCanvas(this.xs3dTo2d(el)), this.ys2dToCanvas(this.ys3dTo2d(el)), pointSize, 0, Math.PI*2, true);
 			context.fill();
@@ -108,6 +109,23 @@ class Canvas3DComponent extends Component {
 
 	printSubject(subject, context){
 
+	}
+
+	// TODO
+	printPlanes(fig, context){
+		fig.subject.planes.forEach((el)=>{
+			context.beginPath();
+			context.fillStyle = '#2596be';
+			context.globalAlpha = 0.8;
+			context.moveTo(this.xs2dToCanvas(this.xs3dTo2d(fig.subject.points[fig.subject.edges[el.e1].p1])), this.ys2dToCanvas(this.ys3dTo2d(fig.subject.points[fig.subject.edges[el.e1].p1])));
+			context.lineTo(this.xs2dToCanvas(this.xs3dTo2d(fig.subject.points[fig.subject.edges[el.e1].p2])), this.ys2dToCanvas(this.ys3dTo2d(fig.subject.points[fig.subject.edges[el.e1].p2])));
+			context.lineTo(this.xs2dToCanvas(this.xs3dTo2d(fig.subject.points[fig.subject.edges[el.e2].p1])), this.ys2dToCanvas(this.ys3dTo2d(fig.subject.points[fig.subject.edges[el.e2].p1])));
+			context.moveTo(this.xs2dToCanvas(this.xs3dTo2d(fig.subject.points[fig.subject.edges[el.e2].p2])), this.ys2dToCanvas(this.ys3dTo2d(fig.subject.points[fig.subject.edges[el.e2].p2])));
+			context.lineTo(this.xs2dToCanvas(this.xs3dTo2d(fig.subject.points[fig.subject.edges[el.e1].p2])), this.ys2dToCanvas(this.ys3dTo2d(fig.subject.points[fig.subject.edges[el.e1].p2])));
+			context.lineTo(this.xs2dToCanvas(this.xs3dTo2d(fig.subject.points[fig.subject.edges[el.e2].p1])), this.ys2dToCanvas(this.ys3dTo2d(fig.subject.points[fig.subject.edges[el.e2].p1])));
+
+			context.fill();
+		});
 	}
 
 	_AddEventListeners(){

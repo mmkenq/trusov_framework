@@ -3,11 +3,12 @@ function Figure(){
 
     this.standartFigures = [
         {
-            isActive: false,
+            isActive: true,
             subject: this.cube(),
             // center: new Point(0,0,0),
             color: 'yellow',
             width: 2,
+            showPlanes: true,
             name: 'cube',
         },
         {
