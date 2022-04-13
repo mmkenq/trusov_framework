@@ -3,13 +3,21 @@ function Figure(){
 
     this.standartFigures = [
         {
-            isActive: true,
+            isActive: false,
             subject: this.cube(),
             // center: new Point(0,0,0),
             color: 'yellow',
             width: 2,
             showPolygons: true,
             name: 'cube',
+        },
+        {
+            isActive: false,
+            subject: this.cylinder(),
+            color: 'aqua',
+            width: 2,
+            showPolygons: true,
+            name: 'cylinder',
         },
         {
             subject: this.pyramid(),

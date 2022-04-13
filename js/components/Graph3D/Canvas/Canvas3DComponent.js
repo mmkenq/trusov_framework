@@ -32,12 +32,12 @@ class Canvas3DComponent extends Component {
 		// this.context2.fillRect(0,0,canvas3d2.width, canvas3d2.height);
 	};
 
-	line(x1,y1,x2,y2,context,color,width){
+	line(p1, p2, context, color, width){
 		context.beginPath();
 		context.strokeStyle = color || '#ff5c6c';
 		context.lineWidth = width || 2;
-		context.moveTo(this.xs2dToCanvas(this.xs3dTo2d(x1)), this.ys2dToCanvas(this.ys3dTo2d(y1)));
-		context.lineTo(this.xs2dToCanvas(this.xs3dTo2d(x2)), this.ys2dToCanvas(this.ys3dTo2d(y2)));
+		context.moveTo(this.xs2dToCanvas(this.xs3dTo2d(p1)), this.ys2dToCanvas(this.ys3dTo2d(p1)));
+		context.lineTo(this.xs2dToCanvas(this.xs3dTo2d(p2)), this.ys2dToCanvas(this.ys3dTo2d(p2)));
 		context.stroke();
 	};
 
@@ -47,8 +47,8 @@ class Canvas3DComponent extends Component {
 
 		figure.standartFigures.forEach((el)=>{
 			if(el.isActive){
-				this.printEdges(el, context)
 				this.printPoints(el, context);
+				this.printEdges(el, context)
 				if(el.showPolygons) this.printPolygon(el, context);
 			}
 		});
@@ -57,6 +57,7 @@ class Canvas3DComponent extends Component {
 			if(el.isActive){
 				this.printEdges(el, context)
 				this.printPoints(el, context);
+				if(el.showPolygons) this.printPolygon(el, context);
 			}
 		});
 	}
@@ -64,29 +65,27 @@ class Canvas3DComponent extends Component {
 	// TODO
 	printOxyz(context){
 		// +x
-		this.line(new Point(0,0,0), new Point(0,0,0),
-				  new Point(1.9*(this.win.left+this.win.width),0,0), new Point(0,0,0),
+		this.line(new Point(0,0,0),
+				  new Point(1.9*(this.win.left+this.win.width),0,0),
 				  context, 'green', 3);
 		// -x
-		this.line(new Point(0,0,0), new Point(0,0,0),
-				  new Point(1.9*this.win.left,0,0), new Point(0,0,0),
+		this.line(new Point(0,0,0),
+				  new Point(1.9*this.win.left,0,0),
 				  context, 'green', 3);
 
 		// +y
-		this.line(new Point(0,0,0), new Point(0,0,0),
-				  new Point(0,0,0), new Point(0,1.9*(-this.win.bottom),0),
+		this.line(new Point(0,0,0),
+				  new Point(0,1.9*(-this.win.bottom),0),
 				  context, 'blue', 3);
 
 		// -y
-		this.line(new Point(0,0,0), new Point(0,0,0),
-				  new Point(0,0,0), new Point(0,1.9*(-this.win.bottom-this.win.height),0),
+		this.line(new Point(0,0,0),
+				  new Point(0,1.9*(-this.win.bottom-this.win.height),0),
 				  context, 'blue', 3);
 
 		// #TODO
 		// +z
-		this.line(new Point(0,0,0), new Point(0,0,0),
-				  new Point(0,0,10), new Point(0,0,0),
-				  context, 'yellow', 3);
+		// this.line(new Point(0,0,0), new Point(0,0,10), context, 'yellow', 3);
 	}
 
 	printPoints(fig, context){
@@ -101,8 +100,7 @@ class Canvas3DComponent extends Component {
 	
 	printEdges(fig, context){
 		fig.subject.edges.forEach((el)=>{
-			this.line(fig.subject.points[el.p1], fig.subject.points[el.p1],
-					  fig.subject.points[el.p2], fig.subject.points[el.p2],
+			this.line(fig.subject.points[el.p1], fig.subject.points[el.p2],
 				  	  context, fig.color, fig.width);
 		});
 	}
@@ -116,7 +114,7 @@ class Canvas3DComponent extends Component {
 		fig.subject.polygons.forEach((el)=>{
 			context.beginPath();
 			context.fillStyle = '#2596be';
-			context.globalAlpha = 0.8;
+			context.globalAlpha = 0.7;
 			context.moveTo(this.xs2dToCanvas(this.xs3dTo2d(fig.subject.points[el.p1])), this.ys2dToCanvas(this.ys3dTo2d(fig.subject.points[el.p1])));
 			context.lineTo(this.xs2dToCanvas(this.xs3dTo2d(fig.subject.points[el.p2])), this.ys2dToCanvas(this.ys3dTo2d(fig.subject.points[el.p2])));
 			context.lineTo(this.xs2dToCanvas(this.xs3dTo2d(fig.subject.points[el.p3])), this.ys2dToCanvas(this.ys3dTo2d(fig.subject.points[el.p3])));

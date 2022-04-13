@@ -2,10 +2,10 @@ class Graph3DUIComponent extends Component {
 	num = 0;
 	objects = [
 		'cube',
+		'cylinder',
 		'sphere',
 		'pyramid',
 		'cone',
-		'cylinder',
 	];
 
 	constructor(options){
@@ -67,18 +67,17 @@ class Graph3DUIComponent extends Component {
 			figInputs.appendChild(scalingPlus);
 			figInputs.appendChild(scalingMinus);
 
-			let planes = document.createElement('input');
-			planes.setAttribute('type','checkbox');
-			planes.id = 'showPlanes'
+			let polygons = document.createElement('input');
+			polygons.setAttribute('type','checkbox');
+			polygons.id = 'showPolygons'
 			let label = document.createElement('label');
-			label.setAttribute('for', 'showPlanes');
-			label.innerHTML = 'planes';
+			label.setAttribute('for', 'showPolygons');
+			label.innerHTML = 'polygons';
 
-			planes.addEventListener('click', ()=>{
-				// this.callbacks.togglePlanes()
-				console.log(this)
-			})
-			figInputs.appendChild(planes);
+			polygons.addEventListener('change', ()=>{
+				this.callbacks.togglePolygons(figInputs.dataset.num);
+			});
+			figInputs.appendChild(polygons);
 			figInputs.appendChild(label);
 
 
@@ -86,7 +85,8 @@ class Graph3DUIComponent extends Component {
 			this.objects.forEach((el)=>{
 				let option = document.createElement('option');
 				option.innerHTML = el;
-				option.value = el;
+				if(el == 'sphere') option.innerHTML = 'СФЕРА ХУЛИ'; // xd
+ 				option.value = el;
 				option.addEventListener('click',()=>
 					{
 						this.callbacks.changeFigure(
@@ -94,6 +94,7 @@ class Graph3DUIComponent extends Component {
 							figure[el](new Point(Number(x.value), Number(y.value), Number(z.value))),
 						 	color.value,
 						 	linewidth.value,
+						 	polygons.checked,
 							name.value||el);
 					});
 

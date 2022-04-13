@@ -19,5 +19,15 @@ Figure.prototype.pyramid = (center = new Point(0,0,0)) => {
         new Edge(3,4),
         new Edge(4,1),
     ];
-    return new Subject(points,edges);
+
+    const polygons = [
+        new Polygon(0,1,2),
+        new Polygon(0,2,3),
+        new Polygon(0,3,4),
+        new Polygon(0,4,1),
+
+        new Polygon(1,2,3),
+        new Polygon(1,3,4),
+    ];
+    return new Subject(points,edges, polygons);
 }

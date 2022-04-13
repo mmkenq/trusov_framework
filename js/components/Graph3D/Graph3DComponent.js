@@ -34,6 +34,7 @@ class Graph3DComponent extends Component {
             callbacks: { changeFigure: this.changeFigure,
                          addFigure: this.addFigure,
                          changeFigureXYZ: this.changeFigureXYZ,
+                         togglePolygons: this.togglePolygons,
                         },
             standartObjects: this.standartObjects,
         });
@@ -49,13 +50,18 @@ class Graph3DComponent extends Component {
         // ...
     };
 
-    changeFigure = (num, subject, color, linewidth, name) => {
+    togglePolygons = (num) => {
+        figure.userFigures[num].showPolygons = !figure.userFigures[num].showPolygons;
+        this.render();
+    };
+
+    changeFigure = (num, subject, color, linewidth, showPolygons, name) => {
         figure.userFigures[num] = {
             isActive: true,
 			subject: subject || figure.userFigures[num].subject,
-            // center: center,
             color: color,
             width: linewidth,
+            showPolygons: showPolygons,
 			name: name
 		};
         this.render();
@@ -79,6 +85,7 @@ class Graph3DComponent extends Component {
             // center: new Point(0,0,0),
             color: 'pink',
             width: 2,
+            showPolygons: false,
             name: 'cube',
         });
 
