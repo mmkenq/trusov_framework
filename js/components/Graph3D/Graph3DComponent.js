@@ -31,10 +31,12 @@ class Graph3DComponent extends Component {
             id:'ui3d',
             parent: this,
             template: template.graph3DTemplate.uiTemplate,
-            callbacks: { changeFigure: this.changeFigure,
-                         addFigure: this.addFigure,
+            callbacks: { addFigure: this.addFigure,
+                         changeFigure: this.changeFigure,
+                         scaleFigure: this.scaleFigure,
+                         getFigure: this.getFigure,
                          changeFigureXYZ: this.changeFigureXYZ,
-                         togglePolygons: this.togglePolygons,
+                         toggleDetail: this.toggleDetail,
                         },
             standartObjects: this.standartObjects,
         });
@@ -50,20 +52,32 @@ class Graph3DComponent extends Component {
         // ...
     };
 
-    togglePolygons = (num) => {
-        figure.userFigures[num].showPolygons = !figure.userFigures[num].showPolygons;
+    toggleDetail = (num, detail) => {
+        switch(detail){
+            case 'showPoints':
+                figure.userFigures[num].showPoints = !figure.userFigures[num].showPoints;
+                break;
+            case 'showEdges':
+                figure.userFigures[num].showEdges = !figure.userFigures[num].showEdges;
+                break;
+            case 'showPolygons':
+                figure.userFigures[num].showPolygons = !figure.userFigures[num].showPolygons;
+                break;
+        };
         this.render();
     };
 
-    changeFigure = (num, subject, color, linewidth, showPolygons, name) => {
-        figure.userFigures[num] = {
-            isActive: true,
-			subject: subject || figure.userFigures[num].subject,
-            color: color,
-            width: linewidth,
-            showPolygons: showPolygons,
-			name: name
-		};
+    getFigure = (num, owner) => {
+        if(owner = 'user') return figure.userFigures[num];
+        return figure.standartFigures[num];
+    };
+
+    changeFigure = (num, subject, color, linewidth, name) =>
+    {
+        figure.userFigures[num].subject = subject || figure.userFigures[num].subject,
+        figure.userFigures[num].color = color;
+        figure.userFigures[num].width = linewidth;
+		figure.userFigures[num].name = name;
         this.render();
 		console.log(figure);
     };
@@ -85,6 +99,8 @@ class Graph3DComponent extends Component {
             // center: new Point(0,0,0),
             color: 'pink',
             width: 2,
+            showPoints: true,
+            showEdges: true,
             showPolygons: false,
             name: 'cube',
         });
@@ -231,7 +247,6 @@ class Graph3DComponent extends Component {
                 });
             };
 
-
             // TODO
             // ----> Z  counter clockwise
             //     point.x = point.x*Math.cos(a) - point.y*Math.sin(a);
@@ -243,5 +258,34 @@ class Graph3DComponent extends Component {
             this.render();
         };
     };
+
+    scaleFigure = (num, way) => {
+        let delta = 1.1;
+
+
+        switch(way){
+            case 'x+':
+                figure.userFigures[num].subject.points.forEach(point => point.x *= delta);
+                break;
+            case 'x-':
+                figure.userFigures[num].subject.points.forEach(point => point.x /= delta);
+                break;
+            case 'y+':
+                figure.userFigures[num].subject.points.forEach(point => point.y *= delta);
+                break;
+            case 'y-':
+                figure.userFigures[num].subject.points.forEach(point => point.y /= delta);
+                break;
+            case 'z+':
+                figure.userFigures[num].subject.points.forEach(point => point.z *= delta);
+                break;
+            case 'z-':
+                figure.userFigures[num].subject.points.forEach(point => point.z /= delta);
+                break;
+        }
+
+        this.render();
+    };
+
 
 }

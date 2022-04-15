@@ -18,18 +18,16 @@ Figure.prototype.cylinder = (center = new Point(0,0,0)) => {
 			y = R*Math.sin(a/rad);
 			points.push(new Point(x,y,znext));
 			a += delta;
-			console.log(x)
 		};
-		console.log(points)
 	};
 
-	// дальний круг
+	// дальняя окружность
 	for(let i = 0; i<points.length/2-1; i++){
 		edges.push(new Edge(i, i+1));
 	};
 	edges.push(new Edge(points.length/2-1, 0));
 
-	// ближний круг
+	// ближняя окружность
 	for(let i = 12; i<points.length-1; i++){
 		edges.push(new Edge(i, i+1));
 	};

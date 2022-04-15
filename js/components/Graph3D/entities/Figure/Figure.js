@@ -8,8 +8,18 @@ function Figure(){
             // center: new Point(0,0,0),
             color: 'yellow',
             width: 2,
+            showPoints: true,
+            showEdges: true,
             showPolygons: true,
             name: 'cube',
+        },
+        {
+            isActive: false,
+            subject: this.cone(),
+            color: 'aqua',
+            width: 2,
+            showPolygons: true,
+            name: 'cone',
         },
         {
             isActive: false,

@@ -47,18 +47,18 @@ class Canvas3DComponent extends Component {
 
 		figure.standartFigures.forEach((el)=>{
 			if(el.isActive){
-				this.printPoints(el, context);
-				this.printEdges(el, context)
+				if(el.showPoints) this.printPoints(el, context);
+				if(el.showEdges) this.printEdges(el, context);
 				if(el.showPolygons) this.printPolygon(el, context);
-			}
+			};
 		});
 
 		figure.userFigures.forEach((el)=>{
 			if(el.isActive){
-				this.printEdges(el, context)
-				this.printPoints(el, context);
+				if(el.showPoints) this.printPoints(el, context);
+				if(el.showEdges) this.printEdges(el, context);
 				if(el.showPolygons) this.printPolygon(el, context);
-			}
+			};
 		});
 	}
 
@@ -103,10 +103,6 @@ class Canvas3DComponent extends Component {
 			this.line(fig.subject.points[el.p1], fig.subject.points[el.p2],
 				  	  context, fig.color, fig.width);
 		});
-	}
-
-	printSubject(subject, context){
-
 	}
 
 	// NOTE: polygon is triangle here 

@@ -8,6 +8,18 @@ class Graph3DUIComponent extends Component {
 		'cone',
 	];
 
+	showDetails = [
+		'showPoints',
+		'showEdges',
+		'showPolygons',
+	];
+
+	scaleWays = [
+		'x+', 'x-',
+		'y+', 'y-',
+		'z+', 'z-',
+	];
+
 	constructor(options){
 		super(options);
 
@@ -29,13 +41,13 @@ class Graph3DUIComponent extends Component {
 			x.id = 'newFigureX';
 			y.id = 'newFigureY';
 			z.id = 'newFigureZ';
-			x.addEventListener('blur', ()=>{
+			x.addEventListener('change', ()=>{
 				this.callbacks.changeFigureXYZ(figInputs.dataset.num, Number(x.value), 0, 0);
 		    });
-		    y.addEventListener('blur', ()=>{
+		    y.addEventListener('change', ()=>{
 				this.callbacks.changeFigureXYZ(figInputs.dataset.num, 0, Number(y.value), 0);
 		    });
-			z.addEventListener('blur', ()=>{
+			z.addEventListener('change', ()=>{
 				this.callbacks.changeFigureXYZ(figInputs.dataset.num, 0, 0, Number(z.value));
 		    });
 			figInputs.appendChild(x);
@@ -44,42 +56,52 @@ class Graph3DUIComponent extends Component {
 
 			let color = document.createElement('input');
 			color.setAttribute('placeholder', 'color');
+			color.addEventListener('keyup', ()=>{
+				try{ this.callbacks.changeFigure(figInputs.dataset.num, null, color.value, linewidth.value, name.value); }
+				catch(e){console.log(e)};
+			});
 			figInputs.appendChild(color);
 
 			let linewidth = document.createElement('input');
 			linewidth.setAttribute('placeholder', 'linewidth');
+			linewidth.addEventListener('keyup', ()=>{
+				try{ this.callbacks.changeFigure(figInputs.dataset.num, null, color.value, linewidth.value, name.value); }
+				catch(e){console.log(e)};
+			});
 			figInputs.appendChild(linewidth);			
 
 			let name = document.createElement('input');
 			name.setAttribute('placeholder', 'name');
+			name.addEventListener('keyup', ()=>{
+				try{ this.callbacks.changeFigure(figInputs.dataset.num, null, color.value, linewidth.value, name.value); }
+				catch(e){console.log(e)};
+			})
 			figInputs.appendChild(name);			
 
-			let scalingPlus = document.createElement('button');
-			scalingPlus.innerHTML = '+';
-			scalingPlus.addEventListener('click', ()=>{
-				console.log('scalingPlus')
+			this.scaleWays.forEach(way => {
+				let scaleBut = document.createElement('button');
+				scaleBut.innerHTML = way;
+				scaleBut.addEventListener('click', ()=>{
+					this.callbacks.scaleFigure(figInputs.dataset.num, way);
+				});
+				figInputs.appendChild(scaleBut);
 			});
-			let scalingMinus = document.createElement('button');
-			scalingMinus.innerHTML = '-';
-			scalingMinus.addEventListener('click', ()=>{
-				console.log('scalingMinus');
+
+			this.showDetails.forEach(detail => {
+				let showDetail = document.createElement('input');
+				showDetail.setAttribute('id', detail);
+				showDetail.setAttribute('type', 'checkbox');
+				showDetail.checked = this.callbacks.getFigure(figInputs.dataset.num, 'user')[detail];
+				let label = document.createElement('label');
+				label.setAttribute('for', detail);
+				label.innerHTML = detail.substring('show'.length);
+
+				showDetail.addEventListener('change', ()=>{
+					this.callbacks.toggleDetail(figInputs.dataset.num, detail);
+				});
+				figInputs.appendChild(showDetail);
+				figInputs.appendChild(label);
 			});
-			figInputs.appendChild(scalingPlus);
-			figInputs.appendChild(scalingMinus);
-
-			let polygons = document.createElement('input');
-			polygons.setAttribute('type','checkbox');
-			polygons.id = 'showPolygons'
-			let label = document.createElement('label');
-			label.setAttribute('for', 'showPolygons');
-			label.innerHTML = 'polygons';
-
-			polygons.addEventListener('change', ()=>{
-				this.callbacks.togglePolygons(figInputs.dataset.num);
-			});
-			figInputs.appendChild(polygons);
-			figInputs.appendChild(label);
-
 
 			let changeFigBut = document.createElement('select');
 			this.objects.forEach((el)=>{
@@ -89,24 +111,22 @@ class Graph3DUIComponent extends Component {
  				option.value = el;
 				option.addEventListener('click',()=>
 					{
+						console.log(this.callbacks.getFigure(figInputs.dataset.num, 'user').showPoints)
 						this.callbacks.changeFigure(
 							figInputs.dataset.num,
 							figure[el](new Point(Number(x.value), Number(y.value), Number(z.value))),
 						 	color.value,
 						 	linewidth.value,
-						 	polygons.checked,
 							name.value||el);
 					});
 
 				changeFigBut.appendChild(option);
 			});
 			figInputs.appendChild(changeFigBut);
-
 			figures.appendChild(figInputs);
 			this.num++;
 		})
 		
-
 		buts3d.appendChild(addBut)
 	};
 
