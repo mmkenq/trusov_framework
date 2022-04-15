@@ -1,8 +1,5 @@
-Figure.prototype.cone = () => {
-    const points = [
-    	// new Point(5,0,0),
-    	// new Point(0,5,0),
-	];
+Figure.prototype.cone = () => { // TODO: center = new Point(0,0,0)
+    const points = [];
     const edges = [];
     const polygons = [];
     const rad = 57.295779513082;
@@ -12,9 +9,9 @@ Figure.prototype.cone = () => {
 	let a = 0; // угол
 	let delta = 30; // плотность точек
 
-	let x = 3;
-	let y = 3;
-	let z = -5;
+	let x = 0;
+	let y = 0;
+	let z = 0;
 
 	let r = R; // changing radius
 	for(let znext = -r; znext <= R; znext++){
@@ -38,7 +35,7 @@ Figure.prototype.cone = () => {
 	};
 	edges.push(new Edge(0, 360/delta-1));
 
-	// // ближняя окружность
+	// ближняя окружность
 	for(let i = points.length-1; i>points.length-360/delta; i--){
 		edges.push(new Edge(i, i-1));
 	};
