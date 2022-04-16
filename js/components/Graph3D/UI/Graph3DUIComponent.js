@@ -6,6 +6,7 @@ class Graph3DUIComponent extends Component {
 		'sphere',
 		'pyramid',
 		'cone',
+		'doublePlanes',
 	];
 
 	showDetails = [
