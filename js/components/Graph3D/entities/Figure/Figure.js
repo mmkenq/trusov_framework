@@ -4,9 +4,9 @@ function Figure(){
     this.standartFigures = [
         {
             isActive: false,
-            subject: this.cube(),
+            subject: this.doublePlanes(),
             // center: new Point(0,0,0),
-            color: 'yellow',
+            color: 'aqua',
             width: 2,
             showPoints: true,
             showEdges: true,
@@ -16,7 +16,7 @@ function Figure(){
         {
             isActive: false,
             subject: this.cone(),
-            color: 'aqua',
+            color: 'yellow',
             width: 2,
             showPolygons: true,
             name: 'cone',
