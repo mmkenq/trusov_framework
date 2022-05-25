@@ -95,13 +95,13 @@ class Graph3DComponent extends Component {
     addFigure = () => {
         figure.userFigures.push({
             isActive: true,
-            subject: figure.cube(),
+            subject: figure.oneLineHyperBoloid(),
             // center: new Point(0,0,0),
             color: 'pink',
             width: 2,
             showPoints: true,
             showEdges: true,
-            showPolygons: false,
+            showPolygons: true,
             name: 'cube',
         });
 

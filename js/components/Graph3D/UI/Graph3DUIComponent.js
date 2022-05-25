@@ -7,6 +7,7 @@ class Graph3DUIComponent extends Component {
 		'pyramid',
 		'cone',
 		'doublePlanes',
+		'oneLineHyperBoloid'
 	];
 
 	showDetails = [
@@ -112,7 +113,7 @@ class Graph3DUIComponent extends Component {
  				option.value = el;
 				option.addEventListener('click',()=>
 					{
-						console.log(this.callbacks.getFigure(figInputs.dataset.num, 'user').showPoints)
+						// console.log(this.callbacks.getFigure(figInputs.dataset.num, 'user').showPoints)
 						this.callbacks.changeFigure(
 							figInputs.dataset.num,
 							figure[el](new Point(Number(x.value), Number(y.value), Number(z.value))),
